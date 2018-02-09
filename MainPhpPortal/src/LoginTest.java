@@ -22,6 +22,7 @@ public class LoginTest {
 		driver = new org.openqa.selenium.firefox.FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
+	//Test that when a user enters an invalid password an error message is displayed
 	@Test
 	public void a_invalid_Password()
 	{
