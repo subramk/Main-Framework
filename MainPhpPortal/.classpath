@@ -6,5 +6,18 @@
 	<classpathentry kind="lib" path="C:/Selenium/rc.jar"/>
 	<classpathentry kind="lib" path="C:/Selenium/selenium-java-2.53.1.zip"/>
 	<classpathentry kind="lib" path="C:/Selenium/selenium-java-2.53.1.jar"/>
+	<classpathentry kind="lib" path="C:/Selenium/POI/Final_Extract/commons-codec-1.10.jar"/>
+	<classpathentry kind="lib" path="C:/Selenium/POI/Final_Extract/commons-collections4-4.1.jar"/>
+	<classpathentry kind="lib" path="C:/Selenium/POI/Final_Extract/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Selenium/POI/Final_Extract/curvesapi-1.04.jar"/>
+	<classpathentry kind="lib" path="C:/Selenium/POI/Final_Extract/junit-4.12.jar"/>
+	<classpathentry kind="lib" path="C:/Selenium/POI/Final_Extract/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="C:/Selenium/POI/Final_Extract/poi-3.17.jar"/>
+	<classpathentry kind="lib" path="C:/Selenium/POI/Final_Extract/poi-examples-3.17.jar"/>
+	<classpathentry kind="lib" path="C:/Selenium/POI/Final_Extract/poi-excelant-3.17.jar"/>
+	<classpathentry kind="lib" path="C:/Selenium/POI/Final_Extract/poi-ooxml-3.17.jar"/>
+	<classpathentry kind="lib" path="C:/Selenium/POI/Final_Extract/poi-ooxml-schemas-3.17.jar"/>
+	<classpathentry kind="lib" path="C:/Selenium/POI/Final_Extract/poi-scratchpad-3.17.jar"/>
+	<classpathentry kind="lib" path="C:/Selenium/POI/Final_Extract/xmlbeans-2.6.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
