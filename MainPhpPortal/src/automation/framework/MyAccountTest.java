@@ -15,8 +15,7 @@ import org.junit.runners.MethodSorters;
 import automation.framework.SignIn;
 import automation.framework.LoginPage;
 import automation.framework.Account;
-import org.junit.FixMethodOrder;
-import org.junit.runners.MethodSorters;
+
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MyAccountTest {
