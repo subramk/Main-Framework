@@ -21,19 +21,15 @@ public class HomePage {
 	private static String adults_field_selector = "//*[@id='adults']";
 	private static String child_field_selector = "//*[@id='child']";
 	private static String search_btn_selector = "button.btn-danger.btn.btn-lg.btn-block";
+	private static WebElement element = null;
 	
-	public static void hotelSearch(String mLocation)
+	public static void hotelSearch(WebDriver driver)
 	{
 		String actual = "London, United Kingdom";
 		String Expected;
 		
-		driver.manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
-		WebElement location = driver.findElement(By.xpath(location_field_selector));
-		location.click();
-		location.sendKeys(mLocation);
-		
-		WebElement locationOption = driver.findElement(By.xpath(location_option_selector));
-		List<WebElement> rows = locationOption.findElements(By.tagName("DIV"));
+		element = driver.findElement(By.xpath(location_option_selector));
+		List<WebElement> rows = element.findElements(By.tagName("DIV"));
 		int locationcount = rows.size();
 		
 		for (int i=0; i<locationcount;++i)
@@ -44,36 +40,45 @@ public class HomePage {
 					
 						if (Expected.equals(actual))
 						{
-						WebElement locationOptionSelected = driver.findElement(By.xpath("//body/div[20]/ul/li/ul/li["+i+"]/div"));
-						locationOptionSelected.click();
+							element = driver.findElement(By.xpath("//body/div[20]/ul/li/ul/li["+i+"]/div"));
+							element.click();
 						break;
 						}
 				}
-			
 	}
-	public static void checkinDate()
+	public static WebElement txtLocation(WebDriver driver)
 	{
-		WebElement checkinTxt = driver.findElement(By.name(checkin_field_selector));
-		checkinTxt.clear();
-		checkinTxt.sendKeys("15/08/2018");
+		element = driver.findElement(By.xpath(location_field_selector));
+		return element;
+	}
+	public static WebElement txtCheckinDate(WebDriver driver)
+	{
+		element = driver.findElement(By.name(checkin_field_selector));
+		return element;
+	}
+	public static WebElement txtCheckoutDate(WebDriver driver)
+	{
+		element = driver.findElement(By.name(checkout_field_selector));
+		return element;
+	}
+	public static WebElement btnlocation(WebDriver driver)
+	{
+		element = driver.findElement(By.cssSelector(search_btn_selector));
+		return element;
 	}
 	
-	public static void checkoutDate()
-	{
-		WebElement checkoutTxt = driver.findElement(By.name(checkout_field_selector));
-		checkoutTxt.clear();
-		checkoutTxt.sendKeys("22/08/2018");
-	}
-	public static void adultSelection()
+	public static void  adultSelection(String adultNum)
 	{
 		Select selectAdult = new Select (driver.findElement(By.xpath(adults_field_selector)));
-		selectAdult.selectByValue("3");
+		selectAdult.selectByValue(adultNum);
 	}
 	
-	public static void childSelection()
+	public static WebElement childSelection(WebDriver driver, String childNum, WebElement Select)
 	{
-		Select selectChild = new Select (driver.findElement(By.xpath(child_field_selector)));
-		selectChild.selectByValue("2");
+		element = driver.findElement(By.xpath(child_field_selector));
+		Select dropdown = new Select (element);
+		return Select;
+		//selectChild.selectByValue(childNum);
 	}
 
 	public static void locationBtn()
