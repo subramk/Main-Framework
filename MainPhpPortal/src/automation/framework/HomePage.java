@@ -10,6 +10,10 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import java.util.Date;
+import org.joda.time.Months;
+import org.joda.time.Days;
+import org.joda.time.LocalDate;
 
 
 public class HomePage {
@@ -21,6 +25,7 @@ public class HomePage {
 	private static String adults_field_selector = "//*[@id='adults']";
 	private static String child_field_selector = "//*[@id='child']";
 	private static String search_btn_selector = "button.btn-danger.btn.btn-lg.btn-block";
+	private static String home_page = "/html/body/div[6]/div/div/div[2]/a";
 	private static WebElement element = null;
 	
 	public static void hotelSearch(WebDriver driver)
@@ -46,6 +51,105 @@ public class HomePage {
 						}
 				}
 	}
+	
+	public static void CheckinDatePicker(WebDriver driver, String sMyDateSearch)
+	{	
+		String sCalendarDay;
+		String sMyDate;
+		
+		//Used the joda.time library to identify todays date
+		LocalDate start = new LocalDate(new Date());
+		LocalDate end = new LocalDate(sMyDateSearch);
+		
+		//Then got the difference in months between todays date and my parameter date
+		int months = Months.monthsBetween(start, end).getMonths();
+		System.out.println("This is my starting date " + start.toString("yyyy-MM-dd") + " and this is the difference in months " + months);
+			
+			//I used the difference in months to click on the next button
+			for (int i=0;i<months;++i)
+			{
+			element = driver.findElement(By.xpath("html/body/div[14]/div[1]/table/thead/tr[1]/th[3]"));
+			element.click();
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			}
+			
+			//Extracted the day from the sting
+			sCalendarDay = end.toString("yyyy-MM-dd").substring(8, 10);
+			System.out.println(sCalendarDay);
+			
+			//Located my day from the date picker table
+			element = driver.findElement(By.xpath("html/body/div[14]/div[1]/table/tbody"));
+			List<WebElement> rows = element.findElements(By.tagName("TR"));
+			element = driver.findElement(By.xpath("html/body/div[14]/div[1]/table/tbody/tr"));
+			List<WebElement> cols = element.findElements(By.tagName("TD"));
+ 			
+			for (int j=1; j<rows.size();++j)
+			{
+				for (int i=1;i<cols.size();++i)
+				{
+					element = driver.findElement(By.xpath("html/body/div[14]/div[1]/table/tbody/tr["+j+"]/td["+i+"]"));	
+					sMyDate = element.getText();
+					System.out.println(sMyDate);
+					if (sMyDate.equals(sCalendarDay))
+					{
+						//Clicked on the day from the date picker calendar
+						element = driver.findElement(By.xpath("html/body/div[14]/div[1]/table/tbody/tr["+j+"]/td["+i+"]"));
+						element.click();
+					}
+				}
+			}
+	}
+	public static void CheckoutDatePicker(WebDriver driver, String sMyDateSearch)
+	{
+		String sCalendarDay;
+		String sMyDate;
+		
+		//Used the joda.time library to identify todays date
+		LocalDate start = new LocalDate(new Date());
+		//start = start.plusDays(1);
+		
+		//Then got the difference in months between todays date and my parameter date
+		LocalDate end = new LocalDate(sMyDateSearch);
+		int months = Months.monthsBetween(start, end).getMonths();
+		System.out.println("This is my starting date " + start.toString("yyyy-MM-dd") + " and this is the difference in months " + months);
+			
+			//I used the difference in months to click on the next button
+			for (int i=0;i<months;++i)
+			{
+			element = driver.findElement(By.xpath("html/body/div[15]/div[1]/table/thead/tr[1]/th[3]"));
+			element.click();
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			}
+			
+			//Extracted the day from the sting
+			sCalendarDay = end.toString("yyyy-MM-dd").substring(8, 10);
+			System.out.println(sCalendarDay);
+			
+			//Located my day from the date picker table
+			element = driver.findElement(By.xpath("html/body/div[15]/div[1]/table/tbody"));
+			List<WebElement> rows = element.findElements(By.tagName("TR"));
+			element = driver.findElement(By.xpath("html/body/div[15]/div[1]/table/tbody/tr"));
+			List<WebElement> cols = element.findElements(By.tagName("TD"));
+ 			
+			for (int j=1; j<rows.size();++j)
+			{
+				for (int i=1;i<cols.size();++i)
+				{
+					element = driver.findElement(By.xpath("html/body/div[15]/div[1]/table/tbody/tr["+j+"]/td["+i+"]"));	
+					sMyDate = element.getText();
+					System.out.println(sMyDate);
+					if (sMyDate.equals(sCalendarDay))
+					{
+						//Clicked on the day from the date picker calendar
+						element = driver.findElement(By.xpath("html/body/div[15]/div[1]/table/tbody/tr["+j+"]/td["+i+"]"));
+						element.click();
+					}
+				}
+			}
+
+	
+	
+	}
 	public static WebElement txtLocation(WebDriver driver)
 	{
 		element = driver.findElement(By.xpath(location_field_selector));
@@ -66,26 +170,30 @@ public class HomePage {
 		element = driver.findElement(By.cssSelector(search_btn_selector));
 		return element;
 	}
-	
-	public static void  adultSelection(String adultNum)
+	public static Select clk_AdultDropdownBox(WebElement element, WebDriver driver)
 	{
-		Select selectAdult = new Select (driver.findElement(By.xpath(adults_field_selector)));
-		selectAdult.selectByValue(adultNum);
+		element = driver.findElement(By.xpath(adults_field_selector));
+		Select selectAdult = new Select(element);
+		return selectAdult;
 	}
-	
-	public static WebElement childSelection(WebDriver driver, String childNum, WebElement Select)
+	public static Select clk_childDropdownBox(WebElement element, WebDriver driver)
 	{
 		element = driver.findElement(By.xpath(child_field_selector));
-		Select dropdown = new Select (element);
-		return Select;
-		//selectChild.selectByValue(childNum);
+		Select selectAdult = new Select(element);
+		return selectAdult;
 	}
-
+	
 	public static void locationBtn()
 	{
 		WebElement searchBtn = driver.findElement(By.cssSelector(search_btn_selector));
 		searchBtn.click();
 	}
 
-	
+	public static void lnk_Back_to_Homepage()
+	{
+			WebElement element = driver.findElement(By.xpath(home_page));
+			JavascriptExecutor jse = ((JavascriptExecutor)driver);
+			jse.executeScript("arguments[0].click();", element);
+		
+	}
 }
