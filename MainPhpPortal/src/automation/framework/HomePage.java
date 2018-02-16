@@ -27,6 +27,7 @@ public class HomePage {
 	private static String search_btn_selector = "button.btn-danger.btn.btn-lg.btn-block";
 	private static String home_page = "/html/body/div[6]/div/div/div[2]/a";
 	private static WebElement element = null;
+	private static int inMonths;
 	
 	public static void hotelSearch(WebDriver driver)
 	{
@@ -56,17 +57,18 @@ public class HomePage {
 	{	
 		String sCalendarDay;
 		String sMyDate;
+		inMonths=0;
 		
 		//Used the joda.time library to identify todays date
 		LocalDate start = new LocalDate(new Date());
 		LocalDate end = new LocalDate(sMyDateSearch);
 		
 		//Then got the difference in months between todays date and my parameter date
-		int months = Months.monthsBetween(start, end).getMonths();
-		System.out.println("This is my starting date " + start.toString("yyyy-MM-dd") + " and this is the difference in months " + months);
+		inMonths = Months.monthsBetween(start, end).getMonths();
+		System.out.println("This is my starting date " + start.toString("yyyy-MM-dd") + " and this is the difference in months " + inMonths);
 			
 			//I used the difference in months to click on the next button
-			for (int i=0;i<months;++i)
+			for (int i=0;i<inMonths;++i)
 			{
 			element = driver.findElement(By.xpath("html/body/div[14]/div[1]/table/thead/tr[1]/th[3]"));
 			element.click();
@@ -95,6 +97,8 @@ public class HomePage {
 						//Clicked on the day from the date picker calendar
 						element = driver.findElement(By.xpath("html/body/div[14]/div[1]/table/tbody/tr["+j+"]/td["+i+"]"));
 						element.click();
+						break;
+						
 					}
 				}
 			}
@@ -103,6 +107,10 @@ public class HomePage {
 	{
 		String sCalendarDay;
 		String sMyDate;
+		int outMonths =0;
+		int diffMonths =0;
+		int rCounter = 0;
+		int cCounter =0;
 		
 		//Used the joda.time library to identify todays date
 		LocalDate start = new LocalDate(new Date());
@@ -110,11 +118,13 @@ public class HomePage {
 		
 		//Then got the difference in months between todays date and my parameter date
 		LocalDate end = new LocalDate(sMyDateSearch);
-		int months = Months.monthsBetween(start, end).getMonths();
-		System.out.println("This is my starting date " + start.toString("yyyy-MM-dd") + " and this is the difference in months " + months);
-			
+		
+		outMonths = Months.monthsBetween(start, end).getMonths();
+		System.out.println("This is my starting date " + start.toString("yyyy-MM-dd") + " and this is the difference in months " + outMonths);
+		diffMonths = outMonths-inMonths;
+		
 			//I used the difference in months to click on the next button
-			for (int i=0;i<months;++i)
+			for (int i=0;i<diffMonths;++i)
 			{
 			element = driver.findElement(By.xpath("html/body/div[15]/div[1]/table/thead/tr[1]/th[3]"));
 			element.click();
@@ -131,18 +141,21 @@ public class HomePage {
 			element = driver.findElement(By.xpath("html/body/div[15]/div[1]/table/tbody/tr"));
 			List<WebElement> cols = element.findElements(By.tagName("TD"));
  			
-			for (int j=1; j<rows.size();++j)
+			for (int j=0; j<rows.size();++j)
 			{
-				for (int i=1;i<cols.size();++i)
+				rCounter= j+1;
+				for (int i=0;i<cols.size();++i)
 				{
-					element = driver.findElement(By.xpath("html/body/div[15]/div[1]/table/tbody/tr["+j+"]/td["+i+"]"));	
+					cCounter = i+1;
+					element = driver.findElement(By.xpath("html/body/div[15]/div[1]/table/tbody/tr["+rCounter+"]/td["+cCounter+"]"));	
 					sMyDate = element.getText();
 					System.out.println(sMyDate);
 					if (sMyDate.equals(sCalendarDay))
 					{
 						//Clicked on the day from the date picker calendar
-						element = driver.findElement(By.xpath("html/body/div[15]/div[1]/table/tbody/tr["+j+"]/td["+i+"]"));
+						element = driver.findElement(By.xpath("html/body/div[15]/div[1]/table/tbody/tr["+rCounter+"]/td["+cCounter+"]"));
 						element.click();
+						break;
 					}
 				}
 			}
