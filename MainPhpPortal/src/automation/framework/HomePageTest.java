@@ -90,7 +90,7 @@ public class HomePageTest {
 		//Make a selection from the child drop down box
 		HomePage.clk_childDropdownBox(element, driver).selectByValue("3");
 		HomePage.btnlocation(driver).click();
-		//Assert.assertEquals(sExpected, driver.getTitle());
+		Assert.assertEquals(sExpected, driver.getTitle());
 		//System.out.println(driver.getTitle());
 	}
 	
