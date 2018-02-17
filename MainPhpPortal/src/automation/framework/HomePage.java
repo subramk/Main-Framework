@@ -58,6 +58,8 @@ public class HomePage {
 		String sCalendarDay;
 		String sMyDate;
 		inMonths=0;
+		int rCounter = 0;
+		int cCounter =0;
 		
 		//Used the joda.time library to identify todays date
 		LocalDate start = new LocalDate(new Date());
@@ -85,17 +87,19 @@ public class HomePage {
 			element = driver.findElement(By.xpath("html/body/div[14]/div[1]/table/tbody/tr"));
 			List<WebElement> cols = element.findElements(By.tagName("TD"));
  			
-			for (int j=1; j<rows.size();++j)
+			for (int j=0; j<rows.size();++j)
 			{
-				for (int i=1;i<cols.size();++i)
+				rCounter = j+1;
+				for (int i=0;i<cols.size();++i)
 				{
-					element = driver.findElement(By.xpath("html/body/div[14]/div[1]/table/tbody/tr["+j+"]/td["+i+"]"));	
+					cCounter=i+1;
+					element = driver.findElement(By.xpath("html/body/div[14]/div[1]/table/tbody/tr["+rCounter+"]/td["+cCounter+"]"));	
 					sMyDate = element.getText();
 					System.out.println(sMyDate);
 					if (sMyDate.equals(sCalendarDay))
 					{
 						//Clicked on the day from the date picker calendar
-						element = driver.findElement(By.xpath("html/body/div[14]/div[1]/table/tbody/tr["+j+"]/td["+i+"]"));
+						element = driver.findElement(By.xpath("html/body/div[14]/div[1]/table/tbody/tr["+rCounter+"]/td["+cCounter+"]"));
 						element.click();
 						break;
 						

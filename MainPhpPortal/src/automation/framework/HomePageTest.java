@@ -82,7 +82,7 @@ public class HomePageTest {
 		HomePage.txtLocation(driver).sendKeys("London");
 		HomePage.hotelSearch(driver);
 		HomePage.txtCheckinDate(driver).click();
-		HomePage.CheckinDatePicker(driver, "2018-05-28");
+		HomePage.CheckinDatePicker(driver, "2018-05-26");
 		HomePage.txtCheckoutDate(driver).clear();
 		HomePage.CheckoutDatePicker(driver, "2018-07-21");
 		//Make a selection from the adult drop down box
