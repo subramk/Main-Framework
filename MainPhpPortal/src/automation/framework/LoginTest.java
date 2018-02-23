@@ -16,7 +16,7 @@ import automation.framework.ExcelConex;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class LoginTest 
 {
-	private static String Path_Testdata = "C://Users//ibedi////git//Main-Framework//MainPhpPortal//src//automation//framework//TestData.xlsx";
+	private static String Path_Testdata = "C://Users//ibedi//git//Main-Framework//MainPhpPortal//src//automation//framework//TestData.xlsx";
 	private static WebDriver driver = null;
 	private static String sUsername;
 	private static String sPassword;
