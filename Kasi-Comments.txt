@@ -1,0 +1,5 @@
+ -- mavenise your project 
+ -- also include a tomcat or a jetty run command in the maven pom.xml to start up a project on the command line 
+ -- adding more functionality and also split into projects into components ( like Common / Utils etc ) 
+ -- Try to play with Java 8 to make your code Functional so that it is easier to read. 
+ 
