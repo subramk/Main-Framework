@@ -11,10 +11,15 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
+import automation.framework.ExcelConex;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class LoginTest {
+public class LoginTest 
+{
+	private static String Path_Testdata = "C://Users//ibedi////git//Main-Framework//MainPhpPortal//src//automation//framework//TestData.xlsx";
 	private static WebDriver driver = null;
+	private static String sUsername;
+	private static String sPassword;
 	WebElement element;
 	
 	@BeforeClass
@@ -27,19 +32,28 @@ public class LoginTest {
 	@Test
 	public void a_invalid_Password()
 	{
+		try {
+			ExcelConex.setExcelFile(Path_Testdata, "credentials");
+			 sUsername = ExcelConex.getCellData(0, 0);
+			 sPassword = ExcelConex.getCellData(0, 1);
+		} catch (Exception e) {
+		
+			e.printStackTrace();
+		}
 		String notificationMsg = "Invalid Email or Password";
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		System.out.println("Starting test " + new Object(){}.getClass().getEnclosingMethod().getName());
 		driver.get("http://www.phptravels.net");
+		driver.manage().window().maximize();
 		WebElement element = driver.findElement(By.xpath("//body//div[2]/ul/li[1]/a"));
 		JavascriptExecutor jse = ((JavascriptExecutor)driver);
 		jse.executeScript("arguments[0].click();", element);
 		WebElement loginpage = driver.findElement(By.xpath("//body//div[2]/ul/li[1]/ul/li[1]/a"));
 		loginpage.click();
 		LoginPage.txtbx_UserName(driver).clear();
-		LoginPage.txtbx_UserName(driver).sendKeys("user@phptravels.com");
+		LoginPage.txtbx_UserName(driver).sendKeys(sUsername);
 		LoginPage.txtbx_Password(driver).clear();
-		LoginPage.txtbx_Password(driver).sendKeys("demousera");
+		LoginPage.txtbx_Password(driver).sendKeys(sPassword);
 		LoginPage.btn_Login(driver).click();
 		try
 		{
